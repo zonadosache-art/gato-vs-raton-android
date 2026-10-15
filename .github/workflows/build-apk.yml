@@ -26,11 +26,11 @@ jobs:
       - name: Descomprimir proyecto
         run: unzip -o Gato_vs_Raton_Android_Studio.zip
 
-      - name: Preparar Android
-        uses: android-actions/setup-android@v3
-
       - name: Instalar herramientas Android
-        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses </dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Configurar Gradle
         uses: gradle/actions/setup-gradle@v4
